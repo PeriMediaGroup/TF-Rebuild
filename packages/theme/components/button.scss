@@ -1,0 +1,24 @@
+@use "../scss/variables" as *;
+
+.tf-btn {
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.4rem;
+  font-family: var(--font-main);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+
+  &--primary {
+    background-color: var(--color-crimson);
+    color: white;
+  }
+
+  &--secondary {
+    background-color: var(--color-accent-gray);
+    color: var(--color-bg-black);
+  }
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
