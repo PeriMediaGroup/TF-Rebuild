@@ -9,7 +9,7 @@ export default function Home() {
           <li>
             Coming soon
           </li>
-          <li>"great shirt" some guy</li>
+          <li>&quote;great shirt&quote; some guy</li>
         </ol>
       </main>
       <footer className={styles.footer}>
