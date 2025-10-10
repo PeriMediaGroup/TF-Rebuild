@@ -1,0 +1,9 @@
+@use './variables' as *;
+@use './mixins' as *;
+
+body {
+  margin: 0;
+  font-family: var(--font-main);
+  background-color: var(--color-bg-black);
+  color: var(--color-accent-gray);
+}
