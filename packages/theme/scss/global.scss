@@ -1,9 +1,38 @@
 @use './variables' as *;
-@use './mixins' as *;
 
-body {
+.tf-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* fills the viewport */
+
+  &__content {
+    flex: 1; /* pushes footer down when there's space */
+  }
+}
+
+html, body {
   margin: 0;
-  font-family: var(--font-main);
-  background-color: var(--color-bg-black);
-  color: var(--color-accent-gray);
+  padding: 0;
+  background-color: var(--color-bg);
+  color: var(--color-gray);
+  font-family: var(--font-body);
+}
+
+a {
+  color: var(--color-crimson);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-md);
+}
+
+h1, h2, h3, h4 {
+  margin: 0;
 }

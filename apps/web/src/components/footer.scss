@@ -1,0 +1,26 @@
+@use "@triggerfeed/theme/scss/variables" as *;
+
+.tf-footer {
+  border-top: 2px solid var(--color-crimson);
+  background-color: var(--color-gunmetal);
+  font-size: 0.8em;
+  padding: var(--space-md);
+  margin-top: auto;
+  color: var(--color-gray);
+  text-align: center;
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  a {
+    color: var(--color-crimson);
+    text-decoration: none;
+    margin-left: 15px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

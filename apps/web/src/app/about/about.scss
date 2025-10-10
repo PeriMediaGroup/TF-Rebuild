@@ -1,0 +1,47 @@
+.tf-about {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-md);
+  color: var(--color-gray);
+  line-height: 1.6;
+
+  &__title {
+    font-family: var(--font-title);
+    color: var(--color-crimson);
+    text-align: center;
+    margin-bottom: var(--space-md);
+  }
+
+  &__tagline {
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--color-white);
+    margin-bottom: var(--space-lg);
+  }
+
+  &__heading {
+    font-family: var(--font-title);
+    color: var(--color-crimson);
+    margin-top: var(--space-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  &__list {
+    list-style: none;
+    padding-left: 0;
+
+    li {
+      margin-bottom: var(--space-sm);
+    }
+
+    li::before {
+      content: "• ";
+      color: var(--color-crimson);
+    }
+  }
+
+  &__cta {
+    text-align: center;
+    margin-top: var(--space-lg);
+  }
+}

@@ -1,8 +1,24 @@
 :root {
+  /* COLORS */
   --color-gunmetal: #2A3439;
   --color-crimson: #B22222;
-  --color-accent-gray: #A9A9A9;
-  --color-bg-black: #1C1C1C;
+  --color-gray: #A9A9A9;
+  --color-bg: #1C1C1C;
+  --color-white: #ffffff;
 
-  --font-main: 'Black Ops One', sans-serif;
+  /* TYPOGRAPHY */
+  --font-display: sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  /* SPACING */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 2rem;
+  --space-xl: 4rem;
+
+  /* BORDERS & RADII */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
 }
