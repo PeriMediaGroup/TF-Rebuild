@@ -2,7 +2,8 @@
 
 import "./about.scss";
 import { useState } from "react";
-import Modal from "../../components/Modal";
+
+import { Modal } from "@triggerfeed/theme/components";
 
 export default function About() {
   const [showRules, setShowRules] = useState(false);

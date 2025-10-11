@@ -2,25 +2,11 @@ import styles from "./page.module.css";
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
+    <div>
+      <main>
         <h1>TriggerFeed Merch</h1>
-        <ol>
-          <li>
-            Coming soon
-          </li>
-          <li>&quote;great shirt&quote; some guy</li>
-        </ol>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://perimediagroup.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Peri Media Group
-        </a>
-      </footer>
+        <p>Coming Soon!</p>
+        </main>
     </div>
   );
 }

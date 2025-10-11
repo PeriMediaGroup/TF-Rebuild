@@ -1,7 +1,6 @@
 import "@triggerfeed/theme/scss/global.scss";
 import { blackOpsOne } from "@triggerfeed/theme";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import { Header, Footer } from "@triggerfeed/theme/components";
 
 export const metadata = {
   title: "TriggerFeed — Firearms-Friendly Social Media",

@@ -1,4 +1,4 @@
-import Navigation from "./Navigation";
+import Navigation from "../../../apps/web/src/components/Navigation";
 import "./header.scss";
 
 export default function Header() {
