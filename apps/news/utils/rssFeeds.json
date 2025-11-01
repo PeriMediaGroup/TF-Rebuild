@@ -1,0 +1,71 @@
+[
+  { "source_name": "Ruger", "url": "https://ruger.com/data/rss/news.xml" },
+  {
+    "source_name": "GLOCK",
+    "url": "https://us.glock.com/en/Press-Release/News-Page",
+    "type": "html"
+  },
+  {
+    "source_name": "SIG SAUER",
+    "url": "https://www.sigsauer.com/blog/category/blog",
+    "type": "html"
+  },
+  { "source_name": "FN America", "url": "https://fnamerica.com/feed/" },
+  { "source_name": "Savage Arms", "url": "https://savagearms.com/news/feed" },
+  { "source_name": "Mossberg", "url": "https://www.mossberg.com/feed/" },
+  {
+    "source_name": "Daniel Defense",
+    "url": "https://danieldefense.com/wire",
+    "type": "html"
+  },
+  { "source_name": "Barrett", "url": "https://barrett.net/news/feed/" },
+  { "source_name": "Leupold", "url": "https://www.leupold.com/blog/rss/" },
+  { "source_name": "SilencerCo", "url": "https://silencerco.com/feed/" },
+  {
+    "source_name": "Smith & Wesson",
+    "url": "https://www.smith-wesson.com/blog",
+    "type": "html"
+  },
+  {
+    "source_name": "Springfield Armory",
+    "url": "https://www.springfield-armory.com/intel/press-releases/",
+    "type": "html"
+  },
+  { "source_name": "Colt", "url": "https://colt.com/news", "type": "html" },
+  {
+    "source_name": "Beretta",
+    "url": "https://www.beretta.com/en/company/news/announcements",
+    "type": "html"
+  },
+  { "source_name": "Magpul", "url": "https://comms.magpul.com/stories/", "type": "html" },
+  {
+    "source_name": "Trijicon",
+    "url": "https://www.trijicon.com/community",
+    "type": "html"
+  },
+  {
+    "source_name": "Aimpoint",
+    "url": "https://www.aimpoint.com/about-us/news/",
+    "type": "html"
+  },
+  {
+    "source_name": "Vortex Optics",
+    "url": "https://vortexoptics.com/blog.html",
+    "type": "html"
+  },
+  {
+    "source_name": "Palmetto State Armory",
+    "url": "https://palmettostatearmory.com/blog.html",
+    "type": "html"
+  },
+  {
+    "source_name": "SureFire",
+    "url": "https://www.surefire.com/news",
+    "type": "html"
+  },
+  {
+    "source_name": "Streamlight",
+    "url": "https://www.streamlight.com/community/press-releases",
+    "type": "html"
+  }
+]

@@ -1,0 +1,142 @@
+.shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #0f1419;
+  color: #f4f7fb;
+}
+
+.header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(11, 13, 17, 0.92);
+  backdrop-filter: blur(12px);
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+
+.headerInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding: 1rem 2rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.brand span {
+  color: #ff6666;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.navLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  color: rgba(244, 247, 251, 0.78);
+  font-weight: 600;
+  font-size: 0.92rem;
+  transition: all 0.15s ease-in-out;
+}
+
+.navLink:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+.navLinkActive {
+  background: linear-gradient(135deg, #ff5f6d, #ffc371);
+  color: #111111;
+  box-shadow: 0 10px 25px rgba(255, 99, 71, 0.3);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.authButton {
+  border: none;
+  border-radius: 999px;
+  padding: 0.5rem 1.1rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.authButtonPrimary {
+  background: linear-gradient(135deg, #36d1dc 0%, #5b86e5 100%);
+  color: #0c1017;
+  box-shadow: 0 12px 24px rgba(91, 134, 229, 0.35);
+}
+
+.authButtonPrimary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px rgba(91, 134, 229, 0.45);
+}
+
+.authButtonGhost {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.authButtonGhost:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1.5rem 3rem;
+}
+
+.content {
+  width: min(1200px, 100%);
+}
+
+.footer {
+  padding: 1.5rem 2rem;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.55);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(11, 13, 17, 0.9);
+}
+
+@media (max-width: 860px) {
+  .headerInner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .nav {
+    flex-wrap: wrap;
+  }
+
+  .actions {
+    align-self: stretch;
+    justify-content: flex-start;
+  }
+}
+

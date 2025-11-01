@@ -1,4 +1,7 @@
 import "@triggerfeed/theme/scss/global.scss";
+import "./globals.css";
+
+import Providers from "./providers";
 
 export const metadata = {
   title: "TriggerFeed App",
@@ -9,7 +12,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
