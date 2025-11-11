@@ -4,7 +4,7 @@ export default function Navigation() {
   const links = [
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
-    { href: "/merch", label: "Merch" },
+    { href: "https://merch.triggerfeed.com", label: "Merch", external: true  },
     { href: "https://app.triggerfeed.com", label: "Launch App", external: true },
   ];
 
