@@ -1,0 +1,60 @@
+.post-card__vote-split {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin-left: auto;
+  
+    .vote-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .vote-button {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--border-color);
+      background: linear-gradient(to bottom right, #cfcfcf, #f3f3f3);
+      border: 1px solid var(--text-muted);
+      margin: 0;
+      padding: 0 15px;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.1s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+      // Flatten inside corners
+      border-radius: 0;
+  
+      &.vote-button--up {
+        border-top-left-radius: 12px;
+        border-bottom-left-radius: 12px;
+        border-right: none; // seamless join
+      }
+  
+      &.vote-button--down {
+        border-top-right-radius: 12px;
+        border-bottom-right-radius: 12px;
+        border-left: 1px solid var(--text-muted); // seam
+      }
+  
+      &:hover {
+        background: linear-gradient(to bottom right, #eaeaea, #ffffff);
+      }
+  
+      &:active {
+        transform: scale(0.95);
+      }
+  
+      &.active {
+        color: crimson;
+      }
+    }
+  
+    .vote-count {
+      margin-top: 4px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--border-color);
+      text-align: center;
+    }
+  }
+  

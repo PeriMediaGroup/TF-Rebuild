@@ -1,0 +1,47 @@
+.home {
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+    padding: 0;
+  
+    &__left {
+      width: 100%;
+    }
+    &__right {
+      width: auto;
+      margin: .5em;
+    }
+  
+    @media (min-width: 768px) {
+      flex-direction: row;
+      align-items: flex-start;
+      max-width: 1200px;
+      margin: 0 auto;
+  
+      &__left {
+        flex: 2;
+        width:75%;
+      }
+  
+      &__right {
+        flex: 1;
+        display: block;
+        width: 25%;
+        margin-left: 2rem;
+      }
+    }
+  }
+
+  .home-content {
+    margin: 0 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .home {
+      display: flex;
+      flex-direction: row;
+      gap: 2rem;
+      padding: 1rem;
+    }
+  }
+  

@@ -1,0 +1,119 @@
+.signup,
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  margin: 2rem 1em;
+  padding: 1rem;
+  width: auto;
+  max-width: 500px;
+  background-color: var(--surface-dark); // background black
+  color: #fff;
+
+  &__title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-family: "Black Ops One", cursive;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  &__error {
+    color: red;
+    font-size: 0.9rem;
+  }
+
+  &__success {
+    color: lightgreen;
+    font-size: 0.9rem;
+  }
+}
+
+.signup__terms-toggle {
+  display: flex;
+  flex-direction: column;
+  .signup__checkbox:first-of-type {
+    margin-top: 1rem;
+  }
+}
+
+.signup__toggle-button {
+  background: none;
+  border: none;
+  box-shadow: none;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: left;
+  margin: 0;
+  padding: 0;
+}
+
+.signup__terms-scroll {
+  max-height: 200px;
+  width: auto;
+  overflow-y: scroll;
+  background-color: var(--surface-dark);
+  color: var(--text-muted);
+  margin: 1rem 0 0;
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  transition: max-height 0.3s ease-in-out;
+  h2 {
+    margin-top: 0;
+  }
+}
+
+.form-field__error {
+  color: var(--crimson);
+  font-size: 0.875rem;
+}
+
+.form-field__forgot {
+  color: var(--crimson);
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-decoration: underline;
+
+  &:hover {
+    color: #fff;
+  }
+}
+
+
+@media (min-width: 768px) {
+  .signup,
+  .login {
+    margin: 1em auto;
+  }
+}
+
+.login-loading {
+  text-align: center;
+  padding: 2rem;
+}
+
+.loading-bar {
+  margin-top: 1rem;
+  width: 80%;
+  height: 4px;
+  background: linear-gradient(to right, #b22222 0%, #2a3439 50%, #b22222 100%);
+  animation: loadingBarMove 1.5s infinite linear;
+}
+
+@keyframes loadingBarMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}

@@ -1,0 +1,87 @@
+.contact-page {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: var(--surface-dark);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
+
+  h2 {
+    color: var(--primary-text-color);
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    color: var(--accent-gray);
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    input,
+    textarea {
+      background: var(--background-dark);
+      color: var(--primary-text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      border-radius: 6px;
+      outline: none;
+
+      &:focus {
+        border-color: var(--crimson);
+        box-shadow: 0 0 0 1px var(--crimson-light);
+      }
+    }
+
+    .char-count {
+      align-self: flex-end;
+      font-size: 0.8rem;
+      color: var(--lt-grey);
+      margin-top: -0.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    button {
+      background: var(--crimson);
+      color: #fff;
+      font-weight: bold;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.2s;
+
+      &:hover {
+        background: var(--crimson-light);
+      }
+
+      &:disabled {
+        background: #444;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .contact-alt {
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: var(--lt-grey);
+
+    a {
+      color: var(--crimson);
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

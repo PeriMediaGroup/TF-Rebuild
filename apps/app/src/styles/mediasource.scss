@@ -1,0 +1,15 @@
+.media-source-picker {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-start;
+  &--mobile-only {
+    display: none;
+
+    @media screen and (max-width: 768px) {
+      display: inline-block;
+    }
+  }
+  label {
+    cursor: pointer;
+  }
+}

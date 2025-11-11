@@ -1,0 +1,30 @@
+.support {
+  width: fit-content;
+  margin: 0 auto;
+  text-align: center;
+  color: #fff;
+  border-radius: 12px;
+
+  &__text {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    color: var(--text-muted);
+  }
+
+  &__qr {
+    width: 120px;
+    height: auto;
+    margin-bottom: 0.75rem;
+  }
+
+  &__link {
+    color: var(--crimson);
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

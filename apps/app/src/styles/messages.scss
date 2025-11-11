@@ -1,0 +1,234 @@
+// 🔷 Inbox Styles
+.inbox {
+  max-width: 600px;
+  height: 50vh;
+  margin: 0 auto;
+  padding: 1rem;
+  background: var(--surface-dark);
+  border-radius: 6px;
+
+  &__title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--crimson);
+  }
+
+  &__empty {
+    color: var(--accent-gray);
+    text-align: center;
+    font-style: italic;
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__item {
+    margin-bottom: 0.75rem;
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    width: auto;
+    background: #222;
+    color: white;
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: #333;
+      text-decoration: none;
+    }
+  }
+  &__badge {
+    width: auto;
+  }
+  &__user {
+    width: 100%;
+  }
+  &__timestamp {
+    min-width: max-content;
+  }
+
+  &__user {
+    width: 100%;
+  }
+
+  &__badge {
+    width: auto;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  &__timestamp {
+    font-size: 0.8rem;
+    color: var(--accent-gray);
+    min-width: fit-content;
+  }
+}
+
+// 🔷 Thread View
+.message-thread {
+  max-width: 600px;
+  min-height: fit-content;
+  margin: 0 auto;
+  padding: 1rem;
+  background: var(--surface-dark);
+  border-radius: 6px;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  &__back {
+    margin-bottom: 1rem;
+    color: #b22222;
+    font-size: .8rem;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: right;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  &__date {
+    font-size: 0.7rem;
+    text-align: center;
+    padding-bottom: 1rem;
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    color: var(--crimson);
+    margin-bottom: 1rem;
+  }
+
+  &__messages {
+    max-height: 60vh;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  &__message {
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    max-width: 80%;
+    word-wrap: break-word;
+    font-size: 0.95rem;
+
+    &.sent {
+      align-self: flex-end;
+      background: var(--crimson);
+      color: white;
+    }
+
+    &.received {
+      align-self: flex-start;
+      background: #333;
+      color: white;
+    }
+    p {
+      margin: 0;
+    }
+  }
+
+  &__input {
+    display: flex;
+    gap: 0.5rem;
+
+    input {
+      flex: 1;
+      padding: 0.5rem;
+      border-radius: 4px;
+      border: 1px solid #444;
+      background: #111;
+      color: white;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      background-color: var(--crimson);
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: darkred;
+      }
+    }
+  }
+}
+
+.message-thread__sender {
+  font-size: 0.75rem;
+  font-weight: bold;
+  margin-bottom: 2px;
+  color: var(--accent-gray);
+
+  &--sent {
+    color: #b22222;
+    text-align: right;
+  }
+
+  &--received {
+    text-align: left;
+  }
+}
+
+.message-bubble {
+  max-width: 70%;
+  padding: 0.75rem;
+  border-radius: 1rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+  font-size: 0.95rem;
+
+  &--self {
+    background-color: #b22222;
+    color: white;
+    margin-left: auto;
+    text-align: right;
+  }
+
+  &--other {
+    background-color: var(--background-main);
+    color: #fff;
+    margin-right: auto;
+    text-align: left;
+  }
+
+  &__text {
+    margin: 0.3rem;
+    line-height: 1.4;
+  }
+
+  &__time {
+    font-size: 0.75rem;
+    opacity: 0.7;
+    display: block;
+  }
+
+  &__sender {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    font-style: italic;
+  }
+  &__meta {
+    display: flex;
+  }
+}

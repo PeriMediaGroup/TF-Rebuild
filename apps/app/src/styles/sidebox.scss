@@ -1,0 +1,28 @@
+.side-box {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 1rem;
+  flex: 1 1 300px;
+  background: var(--surface-dark);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  box-shadow: 1px 1px 4px rgba(255, 255, 255, .45);
+  transition: background 0.3s ease;
+  &:first-of-type {
+    margin-top: 28px;
+  }
+
+  &__title {
+    margin-bottom: 5px;
+    padding-bottom: 0.5em;
+    font-size: 1.2rem;
+    color: var(--accent-gray);
+    border-bottom: 1px solid var(--lt-grey);
+  }
+  a {
+    font-weight: bold;
+  }
+}

@@ -1,0 +1,37 @@
+// Reserved usernames for TriggerFeed
+// Organized by category for readability & future expansion
+
+const reservedUsernames = [
+  // 🔒 System/Role Reserved
+  "admin", "ceo", "moderator", "triggerfeed",
+
+  // 🔫 Firearm Manufacturers
+  "sig", "sigsauer", "sig_sauer", "glock", "smithandwesson", "smith_wesson", "s&w",
+  "beretta", "remington", "colt", "ruger", "springfield", "springfieldarmory",
+  "fn", "fnh", "fnhusa", "hecklerkoch", "hk", "walther", "cz", "czusa",
+  "kimber", "taurus", "canik", "danwesson", "rockisland", "rockislandarmory",
+  "stevens", "savage", "keltec", "kel-tec", "browning", "mossberg", "winchester",
+  "marlin", "barrett", "barrettfirearms", "bushmaster", "dpms",
+  "palmettostatearmory", "psa", "danieldefense", "dd", "aero", "aeroprecision",
+  "tikka", "sako", "wilsoncombat", "lwrc", "pof", "fnherstal", "defense",
+
+  // 🎯 Optics / Accessories / Ammo
+  "trijicon", "holosun", "eotech", "aimpoint", "leupold", "vortex", "nightforce",
+  "primaryarms", "streamlight", "surefire", "blackhawk", "crimsontrace", "lasermax",
+  "geissele", "faxon", "bravocompany", "bcm", "triggertech", "risearmament",
+  "yhm", "yankeehill", "magpul", "taran", "tarantactical", "agencyarms", "zev",
+  "hornady", "federal", "winchesterammo", "cci", "blazer", "remingtonammo",
+
+  // 🧢 Apparel / Gear / Tactical
+  "511", "5.11", "511tactical", "cryeprecision", "crye", "vertx", "firstspear",
+  "arcteryx", "arcteryxleaf", "trexarms", "spiritussystems", "haleystrategic",
+  "greyghost", "blacksheep", "ferroconcepts", "gcode", "safariland", "hsgi", "bluealphagear",
+
+  // 📺 Influencers / Youtubers
+  "tfb", "thefirearmblog", "hickok45", "kentuckyballistics", "demolitionranch",
+  "demo_ranch", "colionnoir", "iv8888", "sootch00", "nutnfancy", "t-rex", "trex", "trexarms",
+  "donutoperator", "mrgunsngear", "honestoutlaw", "garandthumb", "brandonherrera", "akguy", "donut-operator",
+  "administrativetv", "gunspot", "classicfirearms", "mac", "militaryarmschannel", "fat-electrician", "eli-doubletap",
+];
+
+export default reservedUsernames;

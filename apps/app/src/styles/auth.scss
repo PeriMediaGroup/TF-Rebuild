@@ -1,0 +1,26 @@
+.auth-page {
+  padding: 2rem;
+  text-align: center;
+
+  &__title {
+    font-size: 1.8rem;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+  }
+
+  &__message {
+    font-size: 1rem;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+  }
+
+  &__subtext {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  a {
+    color: var(--accent-color);
+    font-weight: bold;
+  }
+}

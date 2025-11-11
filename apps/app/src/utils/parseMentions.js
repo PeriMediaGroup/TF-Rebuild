@@ -1,15 +1,18 @@
-const MENTION_REGEX = /@([a-zA-Z0-9_]+)/g;
+// Extracts @mentions from a block of text
+export function parseMentions(text) {
+  if (!text || typeof text !== "string") return [];
 
-export const parseMentions = (text) => {
-  if (!text) return [];
-  const mentions = new Set();
+  // Match @username patterns: letters, numbers, underscore, dash, dot
+  const mentionPattern = /@([a-zA-Z0-9._-]+)/g;
+  const mentions = [];
   let match;
 
-  while ((match = MENTION_REGEX.exec(text)) !== null) {
-    const username = match[1]?.trim();
-    if (username) mentions.add(username.toLowerCase());
+  while ((match = mentionPattern.exec(text)) !== null) {
+    const username = match[1].toLowerCase(); // normalize case
+    if (!mentions.includes(username)) {
+      mentions.push(username);
+    }
   }
 
-  return Array.from(mentions);
-};
-
+  return mentions;
+}

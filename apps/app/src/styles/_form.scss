@@ -1,0 +1,48 @@
+.form-field,
+form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.25rem;    
+  width: -webkit-fill-available;
+
+  label {
+    font-weight: 600;
+    color: var(--accent-gray);
+    margin-bottom: 0.5rem;
+  }
+
+  input, select {
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-color);
+    background-color: var(--lt-grey);
+    color: #000;
+    font-size: 1rem;
+    &:focus {
+      outline: none;
+      border-color: var(--color-burgundy);
+    }
+  }
+
+  textarea {
+    padding: 0.75rem;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    background-color: var(--lt-grey);
+    width: -webkit-fill-available;
+    max-width: 100%;
+    color: #000;
+    font-size: 1rem;
+
+    &:focus {
+      outline: none;
+      border-color: var(--color-burgundy);
+    }
+  }
+
+  .error-message {
+    color: var(--crimson);
+    margin-bottom: 1rem;
+  }
+  
+}

@@ -1,236 +1,251 @@
 /**
  * TriggerFeed NewsBot
- *  - waits for complete page load before scraping
- *  - only queues posts newer than 24 hours
- *  - keeps hybrid source balance + logging
+ * Full hybrid crawler with Supabase fallback + image extraction
+ * (c) 2025 TriggerFeed / Peri Media Group
  */
 
-import Parser from "rss-parser";
+
+import 'dotenv/config';
+import fs from "fs";
+import path from "path";
 import fetch from "node-fetch";
 import * as cheerio from "cheerio";
 import puppeteer from "puppeteer";
-import crypto from "crypto";
-import fs from "fs";
+import { createClient } from "@supabase/supabase-js";
 
-const parser = new Parser({ timeout: 10000 });
-const FEEDS_FILE = "./utils/rssFeeds.json";
+// ---------- CONFIG ----------
+
+const DEBUG = process.env.DEBUG === "1";
+const FRESH_HOURS = 24; // Change to 168 for 1 week
+const GLOBAL_CAP = 20;
+const PER_SOURCE = 3;
 const INGEST_URL =
   "https://usvcucujzfzazszcaonb.functions.supabase.co/news-ingest";
-const LOG = (...msg) =>
-  console.log(`[${new Date().toISOString()}]`, ...msg);
 
-// ---------------------------------------------------------------------------
-// Utility helpers
-// ---------------------------------------------------------------------------
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const RSS_FILE = path.resolve("./utils/rssFeeds.json");
+
+// ---------- HELPERS ----------
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-const hash = (s) =>
-  crypto.createHash("sha256").update(s).digest("hex").slice(0, 16);
-const HOURS = 24 * 7; // one week
-const cutoff = Date.now() - HOURS * 60 * 60 * 1000;
 
-// ---------------------------------------------------------------------------
-// Puppeteer selectors (for JS-rendered pages)
-// ---------------------------------------------------------------------------
-const puppeteerSelectors = {
-  "sigsauer.com": {
-    container: ".blog-item",
-    title: ".blog-title a",
-    link: ".blog-title a",
-    desc: ".blog-excerpt",
-    date: ".blog-date",
-    image: "img",
-  },
-  "glock.com": {
-    container: ".press-release, .news-item, .article",
-    title: "h2, .title, .heading",
-    link: "a",
-    desc: "p, .summary, .excerpt",
-    date: "time, .date",
-    image: "img",
-  },
-  "danieldefense.com": {
-    container: ".mfblogunveil, .post-list .item",
-    title: ".post-title a, h2 a",
-    link: ".post-title a",
-    desc: ".post-short-content p, .post-content p",
-    date: "time, .post-meta time",
-    image: (el, $) =>
-      $(el).attr("data-original") ||
-      $(el).find("img").attr("src") ||
-      $(el)
-        .css("background-image")
-        ?.replace(/url\(["']?(.*?)["']?\)/, "$1"),
-  },
-};
+async function safeFetch(url, opts = {}) {
+  try {
+    const r = await fetch(url, { ...opts, timeout: 15000 });
+    if (!r.ok) throw new Error(`Status ${r.status}`);
+    return await r.text();
+  } catch (err) {
+    throw new Error(`${url}: ${err.message}`);
+  }
+}
 
-// ---------------------------------------------------------------------------
-// Generic Puppeteer scraper (waits for full page load)
-// ---------------------------------------------------------------------------
-async function scrapeWithPuppeteer(url, source_name) {
-  LOG(`${source_name}: launching headless browser...`);
+function ts() {
+  return `[${new Date().toISOString()}]`;
+}
+
+function extractImage($el, baseUrl = "") {
+  const img =
+    $el.find("img").first().attr("src") ||
+    $el.find("img").first().attr("data-src") ||
+    $el.find("img").first().attr("data-original") ||
+    (() => {
+      const style =
+        $el.find("[style]").first().attr("style") || $el.attr("style") || "";
+      const m = style.match(/url\\(["']?(.*?)["']?\\)/i);
+      return m ? m[1] : null;
+    })();
+  if (!img) return null;
+  try {
+    return new URL(img, baseUrl).toString();
+  } catch {
+    return img;
+  }
+}
+
+async function safeGoto(page, url) {
+  try {
+    await page.goto(url, { waitUntil: "networkidle2", timeout: 60000 });
+  } catch {
+    await page.goto(url, { timeout: 60000 });
+  }
+}
+
+// ---------- MAIN ----------
+async function run() {
+  console.log(ts(), "=== TriggerFeed NewsBot: Crawling feeds ===");
+
+  const cutoff = Date.now() - FRESH_HOURS * 60 * 60 * 1000;
+  const feeds = JSON.parse(fs.readFileSync(RSS_FILE, "utf8"));
+
   const browser = await puppeteer.launch({
-    headless: false, // set to true for silent mode
+    headless: !DEBUG,
+    slowMo: DEBUG ? 50 : 0,
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
   });
-  const page = await browser.newPage();
 
-  await page.setUserAgent(
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120 Safari/537.36"
-  );
+  const collected = [];
 
-  await page.goto(url, {
-    waitUntil: ["load", "domcontentloaded", "networkidle0"],
-    timeout: 60000,
-  });
-  await page.waitForTimeout(1500);
+  for (const src of feeds) {
+    console.log(ts(), `📰 Fetching ${src.source_name}...`);
+    const page = await browser.newPage();
+    await page.setUserAgent(
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122 Safari/537.36"
+    );
 
-  const domain = new URL(url).hostname.replace("www.", "");
-  const sel = puppeteerSelectors[domain];
-  const html = await page.content();
-  const $ = cheerio.load(html);
-  const items = [];
+    try {
+      if (src.type === "rss" || src.url.endsWith(".xml")) {
+        const xml = await safeFetch(src.url);
+        const $ = cheerio.load(xml, { xmlMode: true });
+        const items = $("item")
+          .map((_, el) => {
+            const title = $(el).find("title").text().trim();
+            const link = $(el).find("link").text().trim();
+            const pub = new Date($(el).find("pubDate").text()).toISOString();
+            const desc = $(el).find("description").text().trim();
+            return {
+              source_name: src.source_name,
+              source_url: link,
+              title_raw: title,
+              content_raw: desc,
+              published_at: pub,
+              hash: Buffer.from(title + link).toString("base64"),
+              image_url: extractImage($(el), src.url),
+            };
+          })
+          .get()
+          .filter(
+            (it) =>
+              it.published_at &&
+              Date.parse(it.published_at) >= cutoff &&
+              it.title_raw
+          );
+        console.log(
+          ts(),
+          `${src.source_name}: collected ${items.length} fresh RSS items.`
+        );
+        collected.push(...items);
+      } else {
+        await safeGoto(page, src.url);
+        await page.waitForSelector("body", { timeout: 15000 });
+        const html = await page.content();
+        const $ = cheerio.load(html);
 
-  $(sel?.container || "article, .post, .card").each((_, el) => {
-    const get = (selKey) =>
-      typeof sel?.[selKey] === "function"
-        ? sel[selKey](el, $)
-        : $(el).find(sel?.[selKey] || "").first().text().trim();
-
-    const title = get("title") || $(el).find("h1,h2").first().text().trim();
-    const linkRaw =
-      $(el).find("a").first().attr("href") &&
-      new URL($(el).find("a").first().attr("href"), url).toString();
-    const desc =
-      get("desc") ||
-      $(el).find("p").first().text().trim() ||
-      $(el).text().slice(0, 200);
-    const date =
-      get("date") ||
-      $(el).find("time").attr("datetime") ||
-      $(el).find("time").text().trim();
-    const image =
-      typeof sel?.image === "function"
-        ? sel.image(el, $)
-        : $(el).find(sel?.image || "img").attr("src");
-
-    if (title) {
-      items.push({
-        source_name,
-        source_url: linkRaw || url,
-        title,
-        content: desc,
-        image_url: image || null,
-        published_at: date || new Date().toISOString(),
-      });
+        const articles = $("article, .blog-item, .post, .card")
+          .slice(0, 10)
+          .map((_, el) => {
+            const title =
+              $(el).find("h2, h3, a").first().text().trim() ||
+              $(el).attr("title") ||
+              "";
+            const href =
+              $(el).find("a").first().attr("href") ||
+              $(el).find("a").attr("data-href") ||
+              "";
+            const desc = $(el).find("p").first().text().trim();
+            const img = extractImage($(el), src.url);
+            const pub = new Date().toISOString(); // fallback if no timestamp
+            return {
+              source_name: src.source_name,
+              source_url: href.startsWith("http")
+                ? href
+                : new URL(href, src.url).toString(),
+              title_raw: title,
+              content_raw: desc,
+              published_at: pub,
+              hash: Buffer.from(title + href).toString("base64"),
+              image_url: img,
+            };
+          })
+          .get()
+          .filter((it) => it.title_raw);
+        console.log(
+          ts(),
+          `${src.source_name}: collected ${articles.length} fresh HTML items.`
+        );
+        collected.push(...articles);
+      }
+    } catch (err) {
+      console.log(ts(), `ERROR: ${src.source_name}: ${err.message}`);
+    } finally {
+      await page.close();
+      await sleep(400);
     }
-  });
+  }
 
   await browser.close();
-  return { title: `${source_name} (puppeteer scrape)`, items };
-}
 
-// ---------------------------------------------------------------------------
-// RSS + Fallback + Freshness filtering
-// ---------------------------------------------------------------------------
-async function scrapeFeed(feed) {
-  const { source_name, url, type } = feed;
-  LOG(`📰 Fetching ${source_name}...`);
-  try {
-    if (type === "html" || url.includes("blog")) {
-      const { items } = await scrapeWithPuppeteer(url, source_name);
-      return items;
-    } else {
-      const data = await parser.parseURL(url);
-      return (
-        data.items
-          ?.map((it) => ({
-            source_name,
-            source_url: it.link,
-            title: it.title,
-            content: it.contentSnippet || it.content || "",
-            image_url:
-              it.enclosure?.url ||
-              it["media:content"]?.url ||
-              it["media:thumbnail"]?.url ||
-              null,
-            published_at:
-              it.isoDate || it.pubDate || new Date().toISOString(),
-          }))
-          .filter((x) => new Date(x.published_at).getTime() >= cutoff) || []
-      );
-    }
-  } catch (err) {
-    LOG(`ERROR: ${source_name}: ${err.message}`);
-    return [];
-  }
-}
-
-// ---------------------------------------------------------------------------
-// Load feeds + ingest fresh posts only
-// ---------------------------------------------------------------------------
-async function run() {
-  LOG("=== TriggerFeed NewsBot: Crawling feeds ===");
-
-  const feeds = JSON.parse(fs.readFileSync(FEEDS_FILE, "utf-8"));
-  let allItems = [];
-
-  for (const feed of feeds) {
-    const items = await scrapeFeed(feed);
-    if (items?.length) {
-      LOG(`${feed.source_name}: collected ${items.length} fresh items.`);
-      allItems.push(...items);
-    } else {
-      LOG(`WARN: ${feed.source_name}: no fresh items found.`);
+  // --- Deduplicate + hybrid select ---
+  const uniq = [];
+  const seen = new Set();
+  for (const it of collected) {
+    if (!seen.has(it.hash)) {
+      uniq.push(it);
+      seen.add(it.hash);
     }
   }
 
-  // hybrid selection
-  const perSourceQuota = 3;
-  const globalCap = 20;
-  const grouped = {};
-  allItems.forEach((i) => {
-    grouped[i.source_name] = grouped[i.source_name] || [];
-    grouped[i.source_name].push(i);
-  });
-  const selected = Object.values(grouped)
-    .flatMap((arr) => arr.slice(0, perSourceQuota))
-    .slice(0, globalCap);
-
-  LOG(
-    `Selecting posts via hybrid strategy (${selected.length}/${globalCap} max).`
+  // per-source quota
+  const bySource = {};
+  for (const it of uniq) {
+    if (!bySource[it.source_name]) bySource[it.source_name] = [];
+    if (bySource[it.source_name].length < PER_SOURCE)
+      bySource[it.source_name].push(it);
+  }
+  const selected = Object.values(bySource)
+    .flat()
+    .slice(0, GLOBAL_CAP);
+  console.log(
+    ts(),
+    `Selecting posts via hybrid strategy (${selected.length}/${GLOBAL_CAP}).`
   );
 
-  for (const post of selected) {
-    const body = {
-      source_name: post.source_name,
-      source_url: post.source_url,
-      title_raw: post.title,
-      content_raw: post.content,
-      image_url: post.image_url,
-      published_at: post.published_at,
-      hash: hash(post.title + post.source_url),
-    };
-
-    LOG(
-      `>>> posting to: ${INGEST_URL} title: ${post.title.slice(0, 70)}...`
-    );
-    const res = await fetch(INGEST_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    }).catch((e) => ({ status: e.message }));
-
-    const data = (await res.json?.()) || res;
-    LOG(
-      `${post.source_name}: ${post.title.slice(0, 60)} →`,
-      JSON.stringify(data)
-    );
-    await sleep(300);
+  // --- Ingest or direct insert ---
+  for (const item of selected) {
+    try {
+      console.log(
+        ts(),
+        `>>> posting to: ${INGEST_URL} title: ${item.title_raw.substring(
+          0,
+          60
+        )}...`
+      );
+      const r = await fetch(INGEST_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(item),
+      });
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      const txt = await r.text();
+      console.log(ts(), `${item.source_name}: ${item.title_raw} → ${txt}`);
+    } catch (err) {
+      console.log(
+        ts(),
+        `WARN: ${item.source_name}: edge ingest failed (${err.message}), inserting directly...`
+      );
+      try {
+        const { error } = await supabase.from("news_queue").insert([
+          {
+            source_name: item.source_name,
+            source_url: item.source_url,
+            title_raw: item.title_raw,
+            content_raw: item.content_raw,
+            published_at: item.published_at,
+            hash: item.hash,
+            image_url: item.image_url || null,
+            fetched_at: new Date().toISOString(),
+            processed: false,
+          },
+        ]);
+        if (error) console.error("Supabase insert error:", error.message);
+      } catch (dbErr) {
+        console.error("Direct insert failed:", dbErr.message);
+      }
+    }
   }
 
-  LOG("✅ Done crawling all feeds.");
-  process.exit(0);
+  console.log(ts(), "✅ Done crawling all feeds.");
 }
 
-// ---------------------------------------------------------------------------
-run();
+run().catch((e) => console.error(ts(), "Fatal:", e));

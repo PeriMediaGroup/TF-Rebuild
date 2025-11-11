@@ -1,0 +1,123 @@
+.report {
+  width: 100%;
+  max-width: 680px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: var(--surface-dark);
+  border-radius: 8px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
+  color: var(--primary-text-color);
+}
+
+.report__title {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.report__note {
+  margin-bottom: 1.5rem;
+  color: var(--lt-grey);
+  font-size: 0.95rem;
+}
+
+.report__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: auto;
+}
+
+.report__label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-weight: 600;
+}
+
+.report__required {
+  font-weight: 400;
+  font-size: 0.85rem;
+  color: var(--warning-yellow);
+}
+
+.report__input,
+.report__textarea,
+.report__file {
+  width: auto;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.35);
+  color: inherit;
+  font-size: 1rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.report__textarea {
+  resize: vertical;
+  min-height: 140px;
+}
+
+.report__file {
+  padding: 0.5rem;
+  background: transparent;
+}
+
+.report__attachments {
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+  border: 1px dashed var(--border-color);
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.report__attachment {
+  font-size: 0.9rem;
+  color: var(--lt-grey);
+}
+
+.report__submit {
+  padding: 0.85rem 1.75rem;
+  align-self: flex-start;
+  font-size: 1rem;
+}
+
+.report__submit[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.report__message {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.report__message--success {
+  background: rgba(0, 128, 0, 0.15);
+  border: 1px solid rgba(0, 128, 0, 0.35);
+  color: #7bf37b;
+}
+
+.report__message--error {
+  background: rgba(178, 34, 34, 0.2);
+  border: 1px solid rgba(178, 34, 34, 0.45);
+  color: #ffb3b3;
+}
+
+@media (max-width: 600px) {
+  .report {
+    padding: 1rem;
+    margin: 1rem auto;
+  }
+
+  .report__title {
+    font-size: 1.5rem;
+  }
+}
