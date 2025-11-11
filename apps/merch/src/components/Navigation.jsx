@@ -2,7 +2,7 @@ import "./navigation.scss";
 
 export default function Navigation() {
   const links = [
-    { href: "/", label: "Home" },
+    { href: "https://triggerfeed.com", label: "Home", external: true  },
     { href: "https://app.triggerfeed.com", label: "Launch App", external: true },
   ];
 
