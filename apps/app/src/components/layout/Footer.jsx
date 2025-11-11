@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../../styles/footer.scss";
-import SocialLinks from "../common/SocialLinks";
 import TotalUsers from "../stats/TotalUsers";
 
 const Footer = () => {
@@ -17,10 +16,11 @@ const Footer = () => {
         <a href="mailto:abuse@triggerfeed.com">Report Abuse</a>
       </div>
 
+      {/* 
       <div className="footer__meta">
         <TotalUsers />
-        <SocialLinks />
       </div>
+      */}
     </footer>
   );
 };

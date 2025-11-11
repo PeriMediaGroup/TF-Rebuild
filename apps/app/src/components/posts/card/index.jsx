@@ -135,30 +135,28 @@ const PostCard = ({ post }) => {
           )}
           <AdminActionMenu post={post} />
         </div>
-        {post.image_url || post.gif_url || hasYoutubeLink(post.description) ? (
+
+        {/* Unified media preview */}
+        {(post.images?.length > 0 ||
+          post.image_url ||
+          post.video_url ||
+          post.gif_url ||
+          hasYoutubeLink(post.description)) && (
           <MediaPreview
-            mediaFiles={[]} // view-only
+            // Prefer new Cloudinary-linked images first
+            mediaFiles={
+              post.images?.length
+                ? post.images.map((img) => img.url)
+                : post.video_url
+                  ? [post.video_url]
+                  : post.image_url
+                    ? [post.image_url]
+                    : []
+            }
             gifUrl={post.gif_url}
-            imageUrl={post.image_url}
             description={post.description}
             context="post"
           />
-        ) : null}
-
-        {post.video_url && (
-          <div
-            className={`media-preview__wrapper${
-              post.video_url ? " media-preview__wrapper--video" : ""
-            }`}
-          >
-            <video
-              controls
-              className="media-preview__item media-preview__item--post"
-            >
-              <source src={post.video_url} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-          </div>
         )}
 
         {post.description && (

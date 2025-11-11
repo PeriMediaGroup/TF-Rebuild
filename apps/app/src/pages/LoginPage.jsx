@@ -94,7 +94,7 @@ const LoginPage = () => {
 
   return (
     <div className="login">
-      <h2 className="signup__title">Alpha Testers Log In</h2>
+      <h2 className="signup__title">Log In</h2>
       <form className="form-field" onSubmit={handleSubmit}>
         <TextInput
           type="email"
@@ -131,21 +131,6 @@ const LoginPage = () => {
           Log In
         </button>
       </form>
-
-      <div className="signup__oauth">
-        <button onClick={() => handleOAuthLogin("google")}>
-          Continue with Google
-        </button>
-
-        {SHOW_FACEBOOK_LOGIN && (
-          <button
-            className="signup__oauth-btn"
-            onClick={() => handleOAuthLogin("facebook")}
-          >
-            Continue with Facebook
-          </button>
-        )}
-      </div>
     </div>
   );
 };

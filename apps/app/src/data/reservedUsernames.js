@@ -3,7 +3,12 @@
 
 const reservedUsernames = [
   // 🔒 System/Role Reserved
-  "admin", "ceo", "moderator", "triggerfeed",
+  "admin", "ceo", "moderator", "triggerfeed", "staff", "system", 'support_team', "dev", "developer", "backend", "admin_team", 'superuser',
+  "owner", "founder", "god", "jesus", "satan", "hacker", "root", "null", "undefined",
+
+  // Companies/Platforms
+  "facebook", "instagram", "youtube", "tiktok", "x", "twitter", "reddit", "snapchat", "discord",
+  "paypal", 'stripe', "shopify", "cloudinary", "supabase", "vercel", "aws", 'openai',
 
   // 🔫 Firearm Manufacturers
   "sig", "sigsauer", "sig_sauer", "glock", "smithandwesson", "smith_wesson", "s&w",
@@ -29,9 +34,9 @@ const reservedUsernames = [
 
   // 📺 Influencers / Youtubers
   "tfb", "thefirearmblog", "hickok45", "kentuckyballistics", "demolitionranch",
-  "demo_ranch", "colionnoir", "iv8888", "sootch00", "nutnfancy", "t-rex", "trex", "trexarms",
+  "demo_ranch", "colionnoir", "iv8888", "sootch00", "nutnfancy", "t_rex", "trex", "trexarms",
   "donutoperator", "mrgunsngear", "honestoutlaw", "garandthumb", "brandonherrera", "akguy", "donut-operator",
-  "administrativetv", "gunspot", "classicfirearms", "mac", "militaryarmschannel", "fat-electrician", "eli-doubletap",
+  "administrativetv", "gunspot", "classicfirearms", "mac", "militaryarmschannel", "fat_electrician", "eli_doubletap",
 ];
 
 export default reservedUsernames;

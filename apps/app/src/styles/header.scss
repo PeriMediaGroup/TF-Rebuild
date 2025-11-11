@@ -1,6 +1,6 @@
 .header {
   position: sticky;
-  top: 0;
+  top: -1px;
   left: 0;
   right: 0;
   display: flex;
@@ -35,9 +35,11 @@
   }
 
   &__logo:focus,
-  &__logo:focus-visible {
+  &__logo:focus-visible,
+  &__logo:hover {
     outline: none;
     box-shadow: none;
+    text-decoration: none;
   }
 
   &__logo-text {
@@ -45,6 +47,7 @@
     font-weight: 400;
     font-style: normal;
     font-size: 1.4rem;
+    color: var(--crimson);
     padding-left: 60px;
   }
 }

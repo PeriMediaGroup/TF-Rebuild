@@ -45,21 +45,10 @@ const Nav = () => {
       </div>
 
       <ul className="nav__menu" onClick={() => setMenuOpen(false)}>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/about">About</Link>
-        </li>
-        {!user && (
-          <li>
-            <Link to="/signup">Sign Up</Link>
-          </li>
-        )}
         {user && (
           <>
             <li>
-              <Link to="/profile">Profile</Link>
+              <Link to="/profile">My Profile</Link>
             </li>
             <li>
               <Link to="/messages">
@@ -88,10 +77,31 @@ const Nav = () => {
             <Link to="/login">Log In</Link>
           </li>
         ) : (
-          <li>
-            <Link onClick={handleLogout}>Log Out</Link>
-          </li>
+          <span>
+            <li>
+              <Link onClick={handleLogout}>Log Out</Link>
+            </li>
+            <div className="breaker-bar"></div>
+          </span>
         )}
+        {!user && (
+          <span>
+            <li>
+              <Link to="/signup">Sign Up</Link>
+            </li>
+            <div className="breaker-bar"></div>
+          </span>
+        )}
+
+        <li>
+          <Link to="https://triggerfeed.com/">TriggerFeed Website</Link>
+        </li>
+        <li>
+          <Link to="/">Merch Store</Link>
+        </li>
+        <li>
+          <Link to="/about">About TriggerFeed</Link>
+        </li>
         <li>
           <Link to="/members">Members</Link>
         </li>

@@ -8,7 +8,6 @@
   padding: 0.5em;
   background: var(--background-dark);
   border-radius: 0.5rem;
-  // border: 1px solid var(--crimson);
   select {
     width: fit-content;
   }
@@ -152,8 +151,11 @@
 
   &__wrapper {
     position: relative;
-    display: inline-block;
-    max-width: 45%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
     &--video {
       max-width: 100%;
     }
@@ -162,8 +164,9 @@
       width: auto;
       max-width: 100%;
       height: auto;
-      max-height: 400px;
+      max-height: 65vh;
       border-radius: 0.5rem;
+      text-align: center;
     }
   }
 

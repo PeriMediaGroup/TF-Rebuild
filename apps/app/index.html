@@ -1,13 +1,118 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <title>TriggerFeed - Firearms-Friendly Social Media</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap"
+      rel="stylesheet"
+    />
+    <!-- favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+    <!-- Meta Tags -->
+    <link rel="manifest" href="/manifest.webmanifest" />
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>app</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta property="og:url" content="https://triggerfeed.com" />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#000" />
+    <meta
+      name="description"
+      content="TriggerFeed is a firearms-friendly social platform where you can share, connect, and engage with like-minded enthusiasts."
+    />
+    <meta
+      name="keywords"
+      content="2A social network, gun-friendly app, firearms social media, post gun content, no-ban social platform, gun owner community, firearm freedom, post guns online, tactical lifestyle app, second amendment social, alternative to Facebook for gun owners"
+    />
+
+    <!-- Open Graph (Facebook, LinkedIn) -->
+    <meta
+      property="og:title"
+      content="TriggerFeed - The Social Network for Firearms Enthusiasts"
+    />
+    <meta
+      property="og:description"
+      content="A new way to connect with the firearms community. Share your passion, engage with friends, and discover exclusive content. Coming soon!"
+    />
+    <meta
+      property="og:image"
+      content="https://triggerfeed.com/images/TF-Logo-light-bg.png"
+    />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="TriggerFeed - Post, without the safety on!"
+    />
+    <meta
+      name="twitter:description"
+      content="Join the social network built for firearms enthusiasts. Share posts, create groups, and connect with the 2A community."
+    />
+    <meta
+      name="twitter:image"
+      content="https://triggerfeed.com/images/TF-Logo-light-bg.png"
+    />
+    <meta name="twitter:site" content="@trigger_feed" />
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-15T0PBZ17K"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-15T0PBZ17K");
+    </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Website",
+        "name": "TriggerFeed",
+        "url": "https://triggerfeed.com",
+        "description": "Firearms-friendly social media platform for gun enthusiasts. Share, connect, and engage with the community.",
+        "image": "https://triggerfeed.com/images/TF-Logo-light-bg.png",
+        "publisher": {
+          "@type": "Organization",
+          "name": "TriggerFeed"
+        }
+      }
+    </script>
+    <script>
+      if (navigator.userAgent.includes("Edg")) {
+        document.documentElement.setAttribute("data-browser", "edge");
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <section>
+        <h1>TriggerFeed — Firearm-Friendly Social Network</h1>
+        <p>
+          TriggerFeed is a 2A-first social media app where you can post gun
+          content, connect with firearms enthusiasts, and share your tactical
+          lifestyle without fear of bans or censorship.
+        </p>
+        <ul>
+          <li>Built for gun owners, by gun owners</li>
+          <li>Firearm-friendly, privacy-respecting platform</li>
+          <li>Join the Second Amendment social network revolution</li>
+        </ul>
+      </section>
+    </noscript>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
+

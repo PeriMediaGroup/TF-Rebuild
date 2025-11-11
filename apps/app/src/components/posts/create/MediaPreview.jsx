@@ -24,61 +24,59 @@ const MediaPreview = ({
 }) => {
   const urls = description.match(/https?:\/\/[^\s]+/g) || [];
   const youtubeId = urls.map(extractYoutubeId).find(Boolean);
-  const previewClass = `media-preview__item ${context === "post" ? "media-preview__item--post" : ""}`;
+  const previewClass = `media-preview__item ${
+    context === "post" ? "media-preview__item--post" : ""
+  }`;
+
+  // Combine all sources — including Cloudinary URLs (strings) and local previews (objects)
+  const allMedia = [
+    ...(Array.isArray(mediaFiles) ? mediaFiles : []),
+    ...(imageUrl ? [imageUrl] : []),
+    ...(videoUrl ? [videoUrl] : []),
+    ...(gifUrl ? [gifUrl] : []),
+  ];
 
   return (
     <div className="media-preview">
-      {imageUrl && (
-        <img
-          src={imageUrl}
-          alt="Post"
-          onLoad={(e) => {
-            const { width, height } = e.target;
-            const orientation = height > width ? "portrait" : "landscape";
-            e.target.classList.add(`media-preview__item--${orientation}`);
-          }}
-          className={previewClass}
-        />
-      )}
+      {allMedia.map((media, i) => {
+        const src = typeof media === "string" ? media : media.previewUrl;
+        const id = typeof media === "string" ? i : media.id;
+        if (!src) return null;
 
-      {videoUrl && (
-        <div className="media-preview__wrapper">
-          <video controls className={previewClass}>
-            <source src={videoUrl} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-        </div>
-      )}
+        const isVideo = src.match(/\.(mp4|mov|m4v|webm)$/i);
 
-      {gifUrl && (
-        <img
-          src={gifUrl}
-          alt="GIF preview"
-          onLoad={(e) => {
-            const { width, height } = e.target;
-            const orientation = height > width ? "portrait" : "landscape";
-            e.target.classList.add(`media-preview__item--${orientation}`);
-          }}
-          className={previewClass}
-        />
-      )}
+        return (
+          <div className="media-preview__wrapper" key={id}>
+            {context !== "post" && (
+              <button
+                className="media-preview__remove"
+                onClick={() => onDeleteImage(id)}
+                title="Remove image"
+              >
+                ✖
+              </button>
+            )}
+            {isVideo ? (
+              <video controls playsInline muted loop className={previewClass}>
+                <source src={src} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            ) : (
+              <img
+                src={src}
+                alt={`media-${i}`}
+                onLoad={(e) => {
+                  const { width, height } = e.target;
+                  const orientation = height > width ? "portrait" : "landscape";
+                  e.target.classList.add(`media-preview__item--${orientation}`);
+                }}
+                className={previewClass}
+              />
+            )}
+          </div>
+        );
+      })}
 
-      {mediaFiles.map((media, i) => (
-        <div className="media-preview__wrapper" key={media.id}>
-          <button
-            className="media-preview__remove"
-            onClick={() => onDeleteImage(media.id)}
-            title="Remove image"
-          >
-            ✖
-          </button>
-          <img
-            src={media.previewUrl}
-            alt={`preview-${i}`}
-            className={`media-preview__item ${context === "post" ? "media-preview__item--post" : ""}`}
-          />
-        </div>
-      ))}
       {youtubeId && (
         <div className="media-preview__youtube">
           <iframe
