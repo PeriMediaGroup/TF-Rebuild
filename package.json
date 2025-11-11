@@ -11,6 +11,7 @@
   "license": "ISC",
   "packageManager": "pnpm@10.18.2",
   "devDependencies": {
-    "supabase": "^2.54.11"
+    "supabase": "^2.54.11",
+    "packageManager": "pnpm@10.18.2"
   }
 }
